@@ -55,11 +55,10 @@ pub struct Tablero {
 
 impl Tablero {
 
-    pub fn construir_tablero(dificultad : Dificultad) -> Tablero {
+    pub fn construir_tablero(&self, dificultad : Dificultad) -> Tablero {
         
         let (ancho, largo, numero_bombas) = Tablero::obtener_configuracion(dificultad);
-
-        let mut casillas : Vec<Casilla> = Tablero::crear_casillas(ancho * largo, numero_bombas);
+        let mut casillas = Tablero::bombas_mezcladas(&self, ancho * largo, numero_bombas);
 
         let mut tablero = Tablero {
             ancho : ancho,
@@ -81,22 +80,35 @@ impl Tablero {
 
     }
 
-    fn crear_casillas(numero_casillas : u16, numero_bombas : u16) -> Vec<Casilla> {
+    pub fn bombas_mezcladas(&self, numero_casillas : u16, numero_bombas : u16) -> Vec<Casilla> {
 
         let mut casillas : Vec<Casilla> = vec![];
 
         for n in 0..numero_casillas{
-            
             if n <= numero_bombas {
                 casillas.push(Casilla::nueva(true));
+            } else {
+                casillas.push(Casilla::nueva(false));
             }
-
-            casillas.push(Casilla::nueva(false));
         }
 
-        casillas.shuffle(&mut thread_rng());        
+        casillas.shuffle(&mut thread_rng());
+        return casillas; 
         // Voy a usar los indices del vector
+        // Calcular el número de cada casilla, ahora que las bombas están mezcladas
 
-        return casillas;
     }
+
+    // Esta función es la encargada de actualizar el tablero con las nuevas
+    // casillas que se le pasan. Lo más importante, es que desvela las casillas
+    
+    
+    // El índice de las casillas a insertar, se
+    // calcula a partir del índice de la central, dado que son contiguas.
+    // el calculo para cada indice esta en utils, en casillas_contiguas()
+
+    pub fn actualizar(nuevas_casillas : Vec<Casilla>, indice_central : u16) {
+        
+    }
+
 }
