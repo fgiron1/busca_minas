@@ -1,5 +1,13 @@
-// Se importa el modulo
 mod tablero;
+
+use std::io;
+use tablero::Tablero;
+use tablero::Dificultad;
+
+use crate::tablero::InputError;
+
+// Se importa el modulo
+
 
 fn main() {
 
@@ -8,12 +16,38 @@ fn main() {
     // Intermedio: 16 x 16 -> 40 minas
     // Experto: 16 x 30 -> 99 minas
     
-
     println!
-    (">>>>>>>>> BUSCAMINAS <<<<<<<<<\n\
-    \n");
+    (">>>>>>>>> BUSCAMINAS <<<<<<<<<\n\n");
 
-    let mut tablero = tablero::Tablero::construir_tablero(tablero::Dificultad::Facil);
+    // Difficulty choice loop
+    let mut dificultad_res;
+
+    loop {
+        
+        println!("Dificultad\n\
+        \n\
+        1. Fácil\n\
+        2. Normal\n\
+        3. Difícil \n\
+        \n");
+        
+        let mut dificultad_str = String::new();
+        
+        io::stdin()
+        .read_line(&mut dificultad_str)
+        .expect("Ups! No te entiendo");
+
+        let dificultad = Dificultad::from_str(dificultad_str);
+
+        if let Ok(dificultad) = dificultad {
+            dificultad_res = dificultad;
+            break;
+        } else {
+            println!("Eso no es una dificultad. Escoge una dificultad de la lista");
+        }
+    }
+
+    let mut tablero = Tablero::construir_tablero(dificultad_res);
     
 
     // EL BUSCAMINAS
@@ -35,6 +69,7 @@ fn main() {
     // 7. Si ha perdido, se le dice (habia bomba). Si no hay bomba, se comprueba que
     // esten todas las casillas revealed. Esta comprobación se hace después de todo movimiento
     
+    // 8)
 
 
     // Las casillas tienen asociadas o no una bomba.
