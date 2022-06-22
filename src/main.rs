@@ -20,7 +20,7 @@ fn main() {
     (">>>>>>>>> BUSCAMINAS <<<<<<<<<\n\n");
 
     // Difficulty choice loop
-    let mut dificultad_res;
+    let dificultad_final;
 
     loop {
         

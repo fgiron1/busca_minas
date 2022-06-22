@@ -80,9 +80,9 @@ impl Tablero {
     pub fn construir_tablero(dificultad : Dificultad) -> Tablero {
         
         let (ancho, largo, numero_bombas) = Tablero::obtener_configuracion(dificultad);
-        let mut casillas = Tablero::bombas_mezcladas( ancho * largo, numero_bombas);
+        let casillas = Tablero::bombas_mezcladas( ancho * largo, numero_bombas);
 
-        let mut tablero = Tablero {
+        let tablero = Tablero {
             ancho : ancho,
             largo : largo,
             casillas : casillas,
