@@ -40,14 +40,14 @@ fn main() {
         let dificultad = Dificultad::from_str(dificultad_str);
 
         if let Ok(dificultad) = dificultad {
-            dificultad_res = dificultad;
+            dificultad_final = dificultad;
             break;
         } else {
             println!("Eso no es una dificultad. Escoge una dificultad de la lista");
         }
     }
 
-    let mut tablero = Tablero::construir_tablero(dificultad_res);
+    let mut tablero = Tablero::construir_tablero(dificultad_final);
     
 
     // EL BUSCAMINAS
