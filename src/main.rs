@@ -1,10 +1,10 @@
-mod tablero;
-
 use std::io;
-use tablero::Tablero;
-use tablero::Dificultad;
 
-use crate::tablero::InputError;
+pub mod models;
+pub mod utils;
+
+use models::tablero::Dificultad;
+use models::tablero::Tablero;
 
 // Se importa el modulo
 
@@ -20,7 +20,7 @@ fn main() {
     (">>>>>>>>> BUSCAMINAS <<<<<<<<<\n\n");
 
     // Difficulty choice loop
-    let dificultad_final;
+    let dificultad_final : Dificultad;
 
     loop {
         
