@@ -1,8 +1,10 @@
 use rand::seq::SliceRandom;
 use rand::thread_rng;
+use std::fmt::{self, Display};
+use std::io::{self, Write};
+
 
 use crate::models::casilla::Casilla;
-use crate::utils::casillas_contiguas;
 
 #[derive(Debug, PartialEq)]
 pub enum Dificultad {
@@ -26,15 +28,15 @@ impl Dificultad {
 }
 
 pub struct Tablero {
-    ancho: u16,
-    largo: u16,
-    casillas: Vec<Casilla>,
-    es_ganador: bool,
+    pub ancho: u16,
+    pub largo: u16,
+    pub casillas: Vec<Casilla>,
+    pub es_ganador: bool,
 }
 
 impl Tablero {
     pub fn construir_tablero(dificultad: Dificultad) -> Tablero {
-        let (ancho, largo, numero_bombas) = Tablero::obtener_configuracion(dificultad);
+        let (ancho, largo, numero_bombas) = Tablero::parsear_configuracion(dificultad);
         let casillas = Tablero::bombas_mezcladas(ancho * largo, numero_bombas);
 
         let tablero = Tablero {
@@ -48,7 +50,7 @@ impl Tablero {
     }
 
     // Aquí irían configuraciones adicionales a añadir
-    pub fn obtener_configuracion(dificultad: Dificultad) -> (u16, u16, u16) {
+    pub fn parsear_configuracion(dificultad: Dificultad) -> (u16, u16, u16) {
         // Devuelve, en este orden: ancho y largo del tablero y número de bombas que contiene
         match dificultad {
             Dificultad::Facil => (8, 8, 10),
@@ -78,23 +80,31 @@ impl Tablero {
         // Conversion de usize a u64  (en maquinas de 64 bits es lo mismo)
 
         for (casilla, i) in self.casillas.iter().zip(0u64..) {
-            print!("{} ", casilla.to_string());
-
+            
+            io::stdout().flush().unwrap();
+            print!("{} ", casilla);
+            
             // Fin de la fila, salto de linea
             if i % u64::from(self.ancho) == 0 {
+                io::stdout().flush().unwrap();
                 println!("");
             }
         }
     }
 
-    // Esta función es la encargada de actualizar el tablero con las nuevas
-    // casillas que se le pasan. Lo más importante, es que desvela las casillas
+    /*
+        Esta función es la encargada de actualizar el tablero con las nuevas
+        casillas que se le pasan. Lo más importante, es que desvela las casillas
 
-    // El índice de las casillas a insertar, se
-    // calcula a partir del índice de la central, dado que son contiguas.
-    // el calculo para cada indice esta en utils, en casillas_contiguas()
+        TODO : Definir bien las fases de actualizar el tablero
+        TODO : Imprimir numeros al lado de filas y columnas
+    */
 
     pub fn actualizar(&mut self, nuevas_casillas: Vec<Casilla>, indice_central: u64) {
-        casillas_contiguas(indice_central);
+        
+        let mut indices_contiguos : Vec<u64> = Casilla::casillas_contiguas(indice_central);
+
+        
+        
     }
 }
