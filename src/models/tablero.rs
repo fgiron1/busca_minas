@@ -28,10 +28,10 @@ impl Dificultad {
 }
 
 pub struct Tablero {
-    ancho: u16,
-    largo: u16,
-    casillas: Vec<Casilla>,
-    es_ganador: bool,
+    pub ancho: u16,
+    pub largo: u16,
+    pub casillas: Vec<Casilla>,
+    pub es_ganador: bool,
 }
 
 impl Tablero {
@@ -96,7 +96,8 @@ impl Tablero {
         Esta función es la encargada de actualizar el tablero con las nuevas
         casillas que se le pasan. Lo más importante, es que desvela las casillas
 
-        TODO: Definir bien las fases de actualizar el tablero
+        TODO : Definir bien las fases de actualizar el tablero
+        TODO : Imprimir numeros al lado de filas y columnas
     */
 
     pub fn actualizar(&mut self, nuevas_casillas: Vec<Casilla>, indice_central: u64) {

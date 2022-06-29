@@ -6,6 +6,10 @@ pub mod utils;
 use models::tablero::Dificultad;
 use models::tablero::Tablero;
 
+use utils::io_eleccion_dificultad;
+use utils::io_eleccion_casilla;
+
+
 // Se importa el modulo
 
 
@@ -19,36 +23,26 @@ fn main() {
     println!
     (">>>>>>>>> BUSCAMINAS <<<<<<<<<\n\n");
 
-    // Difficulty choice loop
-    let dificultad_final : Dificultad;
+    // Se le pide al usuario que escoja una dificultad entre las 3 anteriores.
+    // Se recoge y sanea su input de usuario
+
+    let dificultad = io_eleccion_dificultad();
+    let mut tablero = Tablero::construir_tablero(dificultad);
+    
+    // Bucle del juego
 
     loop {
-        
-        println!("Dificultad\n\
-        \n\
-        1. Fácil\n\
-        2. Normal\n\
-        3. Difícil \n\
-        \n");
-        
-        let mut dificultad_str = String::new();
-        
-        io::stdin()
-        .read_line(&mut dificultad_str)
-        .expect("Ups! No te entiendo");
 
-        let dificultad = Dificultad::from_str(dificultad_str);
+        // Se le muestra el tablero al usuario y se le pide que escoja una casilla
+        // a destapar. Se recoge y sanea el input de usuario.
 
-        if let Ok(dificultad) = dificultad {
-            dificultad_final = dificultad;
-            break;
-        } else {
-            println!("Eso no es una dificultad. Escoge una dificultad de la lista");
-        }
+        tablero.mostrar();
+        let (fila_eleccion, columna_eleccion) = io_eleccion_casilla((tablero.ancho, tablero.largo));
+
+        
+
     }
-
-    let mut tablero = Tablero::construir_tablero(dificultad_final);
-    tablero.mostrar();
+    
 
     
     
