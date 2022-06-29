@@ -48,6 +48,9 @@ fn main() {
     }
 
     let mut tablero = Tablero::construir_tablero(dificultad_final);
+    tablero.mostrar();
+
+    
     
 
     // EL BUSCAMINAS
